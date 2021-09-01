@@ -1,0 +1,35 @@
+﻿@model IList<Patient>
+
+<partial name="_Breadcrumbs" model=@(new [] { ("/", "Home"), ("/patient", "Patients"), ("", "Index") })>
+
+    <h3 class="mb-3">Patient List</h3>
+
+    <a asp-condition=@User.HasOneOfRoles("patient") class="btn btn-sm btn-primary my-3" asp-controller="Patient" asp-action="Create">Create</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var m in Model)
+            {
+            <tr>
+                <td>@m.Id</td>
+                <td>@m.Name</td>
+                <td>@m.Age</td>
+                <td>
+                    <a asp-conditions=@User.HasOneOfRoles("patient, staff") asp-controller="Patient" asp-action="Details" asp-route-id=@m.Id><i class="bi bi-book" title="Patient Details"></i></a>
+
+                    <a asp-condition=@User.HasOneOfRoles("patient") asp-controller="Patient" asp-action="Edit" asp-route-id=@m.Id><i class="bi bi-pen" title="Edit Patient"></i></a>
+
+                    <a asp-condition=@User.HasOneOfRoles("patient, staff") asp-controller="Patient" asp-action="Delete" asp-route-id=@m.Id><i class="bi bi-trash" title="Delete Patient"></i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

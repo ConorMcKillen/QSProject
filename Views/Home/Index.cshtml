@@ -1,0 +1,27 @@
+﻿<partial name="_Breadcrumbs" model=@(new [] { ("", "Home")})>
+
+    @if (User.IsInRole("patient"))
+    {
+        <div class="callout callout-info">
+            <partial name="_CarouselPatient"/>
+        </div>
+    }
+    else if (User.IsInRole("staff"))
+    {
+        <div class="callout callout-info">
+            <partial name="_CarouselStaff"/>
+        </div>
+
+    }
+    else
+    {
+        <div class="callout callout-info">
+            <partial name="_Carousel" />
+        </div>
+    }
+
+    <p class="align-text-bottom">Today is <b> @DateTime.Now.ToLongDateString()</b></p>
+
+    <div class="callout callout-warning text-center">
+        @ViewBag.Message <b>@ViewBag.Time</b>
+    </div>

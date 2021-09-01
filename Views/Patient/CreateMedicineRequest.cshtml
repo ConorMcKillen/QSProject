@@ -1,0 +1,30 @@
+﻿@model MedicineRequestCreateViewModel
+
+<partial name="_Breadcrumbs" model=@(new [] { 
+    ("/", "Home"),
+    ("/patient", "Patients"),
+    ($"/patient/details/{Model.PatientId}", $"{Model.PatientId}"),
+    ("", "Create Medicine Request") }) >
+
+    <h3 class="mt-4 mb-4">Create Prescription Request</h3>
+
+    <form asp-action="CreateMedicineRequest">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="PatientId" class="form-control" />
+
+        <div class="form-group">
+            <label asp-for="MedicineName" class="control-label"></label>
+            <textarea rows="5" asp-for="MedicineName" class="form-control"></textarea>
+            <span asp-validation-for="MedicineName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a class="btn btn-secondary" asp-action="Details" asp-route-id=@Model.PatientId>Cancel</a>
+        </div>
+    </form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

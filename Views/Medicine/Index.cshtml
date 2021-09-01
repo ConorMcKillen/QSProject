@@ -1,0 +1,40 @@
+﻿@model MedicineSearchViewModel
+
+<partial name="_Breadcrumbs" model=@(new [] { ("/", "Home"), ("/patient", "Patients"), ("", "Index")})>
+    <h3>Prescription List</h3>
+
+    <div class="my-4 d-flex justify-content-between align-items-center">
+        <a asp-action="Create" class="btn btn-primary btn-sm mr-2">Create Prescription Request</a>
+        <partial name="_Search"/>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Patient</th>
+                <th>Created</th>
+                <th>Prescription Request</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var m in Model.Medicines)
+            {
+            <tr>
+                <td>@m.Id</td>
+                <td>@m.Patient.Name</td>
+                <td>@m.CreatedOn.ToShortDateString()</td>
+                <td>@m.MedicineName</td>
+                <td>
+                    <i asp-condition="@m.Active" class="bi bi-toggle-on" title="Prescription is not resolved"></i>
+                    <i asp-condition="@(!m.Active)" class="bi bi-toggle-off" title="Prescription resolved"></i>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@m.Id"><i class="bi bi-lightbulb"></i>Details</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

@@ -1,0 +1,25 @@
+﻿
+
+<h4 class="mt-2 text-info">Prescriptions</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 65%">Prescription</th>
+            <th style="width: 25%">Created</th>
+            <th style="width: 10%">Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var m in Model.Medicines)
+            {
+        <tr>
+            <td>@m.MedicineName</td>
+            <td>@m.CreatedOn</td>
+            <td>
+                <i asp-condition="@m.Active" class="bi bi-toggle-on"></i>
+                <i asp-condition="@(!m.Active)" class="bi bi-toggle-off"></i>
+            </td>
+        </tr>
+            }
+    </tbody>
+</table>
